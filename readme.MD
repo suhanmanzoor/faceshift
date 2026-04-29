@@ -1,5 +1,4 @@
-
-readme = '''# 🧠 FaceShift — AI-Powered Attendance System
+🧠 FaceShift — AI-Powered Attendance System
 
 > **Hackathon Project | Theme: AI in Attendance**  
 > Smart face recognition + real-time GPS geofencing for office attendance management.
