@@ -17,7 +17,7 @@
     "smtp_host": "smtp.hostinger.com",
     "smtp_port": 587,
     "smtp_user": "suhan@thehappytails.co.in",
-    "smtp_pass": "Suhannanil@123",
+    "smtp_pass": "",
     "from_name": "HR Team",
     "auto_report_time": "18:30",
     "auto_report_enabled": false,
