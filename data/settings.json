@@ -1,0 +1,26 @@
+{
+    "office_name": "TechCorp HQ",
+    "office_address": "Anantnag, India",
+    "office_lat": 33.744551,
+    "office_lng": 75.127592,
+    "office_radius_m": 130,
+    "shift_start": "09:00",
+    "shift_end": "18:00",
+    "working_days": [
+        1,
+        2,
+        3,
+        4,
+        5
+    ],
+    "tracker_ping_interval": 1,
+    "smtp_host": "smtp.hostinger.com",
+    "smtp_port": 587,
+    "smtp_user": "suhan@thehappytails.co.in",
+    "smtp_pass": "Suhannanil@123",
+    "from_name": "HR Team",
+    "auto_report_time": "18:30",
+    "auto_report_enabled": false,
+    "updated_at": "2026-04-29 12:12:08",
+    "updated_by": "admin"
+}

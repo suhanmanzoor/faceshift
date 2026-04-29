@@ -1,0 +1,78 @@
+{
+    "2026-04-29": {
+        "EMP0001": {
+            "emp_id": "EMP0001",
+            "name": "Suhan Manzoor",
+            "check_in": "12:12:17",
+            "check_in_ist": "12:12 PM IST",
+            "check_in_dt": "2026-04-29 12:12:17",
+            "status": "present",
+            "confidence": 68.4,
+            "check_in_lat": 0,
+            "check_in_lng": 0,
+            "check_in_dist": 0,
+            "in_office": false,
+            "tracker_active": true,
+            "last_ping": "2026-04-29 12:13:47",
+            "location_pings": [
+                {
+                    "time": "2026-04-29 12:13:05",
+                    "ist": "12:13 PM IST",
+                    "lat": 33.74355416666666,
+                    "lng": 75.12800466666667,
+                    "accuracy": 323,
+                    "dist_m": 117,
+                    "in_office": true
+                },
+                {
+                    "time": "2026-04-29 12:13:05",
+                    "ist": "12:13 PM IST",
+                    "lat": 33.74355416666666,
+                    "lng": 75.12800466666667,
+                    "accuracy": 323,
+                    "dist_m": 117,
+                    "in_office": true
+                },
+                {
+                    "time": "2026-04-29 12:13:05",
+                    "ist": "12:13 PM IST",
+                    "lat": 33.74355416666666,
+                    "lng": 75.12800466666667,
+                    "accuracy": 323,
+                    "dist_m": 117,
+                    "in_office": true
+                },
+                {
+                    "time": "2026-04-29 12:13:27",
+                    "ist": "12:13 PM IST",
+                    "lat": 33.74355416666666,
+                    "lng": 75.12800466666667,
+                    "accuracy": 323,
+                    "dist_m": 117,
+                    "in_office": true
+                },
+                {
+                    "time": "2026-04-29 12:13:47",
+                    "ist": "12:13 PM IST",
+                    "lat": 33.74340525,
+                    "lng": 75.1280015,
+                    "accuracy": 381,
+                    "dist_m": 133,
+                    "in_office": false,
+                    "event": "left_office"
+                }
+            ],
+            "leave_events": [
+                {
+                    "left_at": "12:13:47",
+                    "left_ist": "12:13 PM IST",
+                    "returned_at": null
+                }
+            ],
+            "tracker_start": "2026-04-29 12:13:05",
+            "last_ping_ist": "12:13 PM IST",
+            "last_lat": 33.74340525,
+            "last_lng": 75.1280015
+        }
+    }
+}

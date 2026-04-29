@@ -1,0 +1,65 @@
+[
+    {
+        "time": "2026-04-29 12:10:01",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "registered",
+        "detail": "Employee registered by admin"
+    },
+    {
+        "time": "2026-04-29 12:11:47",
+        "ist": "29 Apr 2026, 12:11 PM IST",
+        "emp_id": "system",
+        "name": "Admin",
+        "event": "settings_updated",
+        "detail": "Settings updated by admin"
+    },
+    {
+        "time": "2026-04-29 12:12:08",
+        "ist": "29 Apr 2026, 12:12 PM IST",
+        "emp_id": "system",
+        "name": "Admin",
+        "event": "settings_updated",
+        "detail": "Settings updated by admin"
+    },
+    {
+        "time": "2026-04-29 12:12:17",
+        "ist": "29 Apr 2026, 12:12 PM IST",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "check_in",
+        "detail": "Checked in at office | Confidence: 68% | Distance: 0m"
+    },
+    {
+        "time": "2026-04-29 12:13:05",
+        "ist": "29 Apr 2026, 12:13 PM IST",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "tracker_started",
+        "detail": "Employee tracking portal activated"
+    },
+    {
+        "time": "2026-04-29 12:13:05",
+        "ist": "29 Apr 2026, 12:13 PM IST",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "tracker_started",
+        "detail": "Employee tracking portal activated"
+    },
+    {
+        "time": "2026-04-29 12:13:05",
+        "ist": "29 Apr 2026, 12:13 PM IST",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "tracker_started",
+        "detail": "Employee tracking portal activated"
+    },
+    {
+        "time": "2026-04-29 12:13:47",
+        "ist": "29 Apr 2026, 12:13 PM IST",
+        "emp_id": "EMP0001",
+        "name": "Suhan Manzoor",
+        "event": "left_office",
+        "detail": "Left office premises \u00b7 133m from office"
+    }
+]
