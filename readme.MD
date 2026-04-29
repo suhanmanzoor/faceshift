@@ -3,7 +3,7 @@
 > **Hackathon Project | Theme: AI in Attendance**  
 > Smart face recognition + real-time GPS geofencing for office attendance management.
 
-> admin id: amdin
+> admin id: admin
 > admin password: admin123
 ---
 
