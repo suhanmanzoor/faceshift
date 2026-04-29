@@ -2,7 +2,8 @@
 
 > **Hackathon Project | Theme: AI in Attendance**  
 > Smart face recognition + real-time GPS geofencing for office attendance management.
-
+admin id: amdin
+admin password: admin123
 ---
 
 ## 📌 Project Name
@@ -427,7 +428,4 @@ MIT License — free to use, modify, and build upon.
 <p align="center">Built for the <strong>AI in Attendance</strong> Hackathon 🏆</p>
 '''
 
-with open('/home/user/output/README.md', 'w') as f:
-    f.write(readme)
 
-print(f"Done — {readme.count(chr(10))} lines written")
