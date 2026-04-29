@@ -1,9 +1,10 @@
-# 🧠 FaceShift — AI-Powered Attendance System
+
+readme = '''# 🧠 FaceShift — AI-Powered Attendance System
 
 > **Hackathon Project | Theme: AI in Attendance**  
 > Smart face recognition + real-time GPS geofencing for office attendance management.
 
-***
+---
 
 ## 📌 Project Name
 
@@ -13,7 +14,9 @@
 
 The name combines **Face** (biometric recognition) + **Shift** (shift-based work management) — two core pillars of the system.
 
-***
+---
+admin id: admin
+password: admin123
 
 ## 🎯 Problem Statement
 
@@ -23,7 +26,7 @@ Traditional office attendance systems are:
 - Fully **manual**, requiring HR effort daily
 - Lacking **real-time awareness** of who is actually in the office
 
-***
+---
 
 ## 💡 Solution
 
@@ -34,15 +37,16 @@ Traditional office attendance systems are:
 | **Layer 1** | Face Recognition (face-api.js) | Verifies identity at check-in |
 | **Layer 2** | GPS Geofencing | Continuously tracks if employee is on premises |
 
-Once an employee checks in via face scan, their phone silently reports GPS coordinates throughout the shift. If they leave the office boundary, it's logged with a timestamp. When they return, that too is recorded.
+Once an employee checks in via face scan, their phone reports GPS coordinates throughout the shift. If they leave the office boundary, it\'s logged with a timestamp. When they return, that too is recorded.
 
-***
+---
 
 ## ✨ Key Features
 
 - 🤖 **AI Face Recognition** — Uses `face-api.js` (SSD MobileNet + 128D face descriptors) for real-time identification directly in the browser
 - 📸 **3-Angle Registration** — Captures left, front, and right face angles for high-accuracy matching
 - 📍 **Real-Time GPS Tracking** — Haversine formula geofencing with configurable radius (default 150m)
+- 📡 **Dedicated GPS Tracker Page** — `tracker.php` runs on the employee\'s phone as a lightweight background-friendly GPS beacon
 - 🔒 **Shift Lock** — Attendance kiosk is automatically locked outside shift hours
 - 📊 **Admin Dashboard** — Live KPIs, attendance table, activity log, all auto-refreshing every 30s
 - 👤 **Employee Management** — Register, view, and deactivate employees with face descriptors stored as JSON
@@ -50,7 +54,7 @@ Once an employee checks in via face scan, their phone silently reports GPS coord
 - ✉️ **Automated Daily Email** — Each employee receives a personalized attendance report at day-end via PHPMailer
 - 🌙 **Dark UI** — Clean, professional dark dashboard built with Bootstrap 5
 
-***
+---
 
 ## 🛠 Tech Stack
 
@@ -66,7 +70,7 @@ Once an employee checks in via face scan, their phone silently reports GPS coord
 
 > ✅ Zero database setup required — everything is stored in JSON files.
 
-***
+---
 
 ## 📁 Project Structure
 
@@ -75,6 +79,7 @@ faceshift/
 ├── config.php            # All settings: office coords, shift times, SMTP, paths
 ├── index.php             # Admin login page
 ├── attendance.php        # Employee kiosk — face scan + GPS tracking
+├── tracker.php           # 📡 Dedicated GPS tracker for employee phones
 ├── register.php          # Register employees (3-angle face capture)
 ├── admin.php             # Admin dashboard (live logs, KPIs, table)
 ├── api.php               # All AJAX endpoints (mark, GPS update, data fetch)
@@ -82,9 +87,11 @@ faceshift/
 ├── logout.php            # Session destroy
 │
 ├── data/                 # Auto-created — do NOT delete
-│   ├── employees.json    # Employee profiles + face descriptors
-│   ├── attendance.json   # Daily attendance records (by date > emp_id)
-│   └── activity_log.json # All events: check-ins, leave events, registrations
+│   ├── employees.json        # Employee profiles + face descriptors
+│   ├── attendance.json       # Daily attendance records (by date > emp_id)
+│   ├── activity_log.json     # All events: check-ins, leave events, registrations
+│   ├── report_sent_log.json  # Log of sent daily reports
+│   └── settings.json         # Dynamic settings storage
 │
 ├── uploads/
 │   └── faces/
@@ -97,34 +104,53 @@ faceshift/
     └── autoload.php
 ```
 
-***
+---
 
-## ⚙️ Configuration (`config.php`)
+## 📡 tracker.php — Dedicated GPS Tracker
 
-Edit these constants before deploying:
+**Live URL:** [https://superdevs.co.in/tracker.php](https://superdevs.co.in/tracker.php)
+
+After a face scan check-in, employees open `tracker.php` on their **personal phone**. This page acts as a lightweight, battery-friendly GPS beacon that:
+
+- Runs in the browser — no app install required
+- Continuously watches the device\'s GPS position via `watchPosition()`
+- Sends coordinates to `api.php?action=update_location` on every significant movement
+- Shows the employee their live distance from the office and whether they are inside or outside the geofence
+- Displays real-time status: **🏢 In Office** or **⚠️ Outside Premises**
+- Keeps running in the background as long as the browser tab is open
+
+> **How employees use it:**
+> 1. Check in at the kiosk via face scan (`attendance.php`)
+> 2. Open `tracker.php` on their phone — [https://superdevs.co.in/tracker.php](https://superdevs.co.in/tracker.php)
+> 3. Enter their Employee ID when prompted
+> 4. Keep the tab open throughout the shift — that\'s it ✅
+
+---
+
+## ⚙️ Configuration some in confif file and some are being set using settings.php
 
 ```php
-define('OFFICE_NAME',     'TechCorp HQ');
-define('OFFICE_LAT',      28.6139);     // ← Your office latitude
-define('OFFICE_LNG',      77.2090);     // ← Your office longitude
-define('OFFICE_RADIUS_M', 150);         // Geofence radius in metres
-define('SHIFT_START',     '09:00');
-define('SHIFT_END',       '18:00');
+define(\'OFFICE_NAME\',     \'TechCorp HQ\');
+define(\'OFFICE_LAT\',      28.6139);     // ← Your office latitude
+define(\'OFFICE_LNG\',      77.2090);     // ← Your office longitude
+define(\'OFFICE_RADIUS_M\', 150);         // Geofence radius in metres
+define(\'SHIFT_START\',     \'09:00\');
+define(\'SHIFT_END\',       \'18:00\');
 
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_PORT', 587);
-define('SMTP_USER', 'your@gmail.com');
-define('SMTP_PASS', 'your-app-password');  // Gmail App Password
+define(\'SMTP_HOST\', \'smtp.gmail.com\');
+define(\'SMTP_PORT\', 587);
+define(\'SMTP_USER\', \'your@gmail.com\');
+define(\'SMTP_PASS\', \'your-app-password\');  // Gmail App Password
 ```
 
-***
+---
 
 ## 🚀 Setup Guide
 
 ### 1. Clone / Download
 
 ```bash
-git clone https://github.com/yourname/faceshift.git
+git clone https://github.com/suhanmanzoor/faceshift.git
 cd faceshift
 ```
 
@@ -137,7 +163,7 @@ composer require phpmailer/phpmailer
 ### 3. Set Admin Password
 
 ```bash
-php -r "echo password_hash('your_password_here', PASSWORD_DEFAULT);"
+php -r "echo password_hash(\'your_password_here\', PASSWORD_DEFAULT);"
 ```
 
 Paste the output hash into `config.php` → `ADMIN_PASS_HASH`.
@@ -166,13 +192,14 @@ php -S localhost:8000
 
 ### 7. First Steps
 
-1. Visit `http://localhost:8000/index.php` → login as admin
+1. Visit `https://superdevs.co.in/faceshift/` → login as admin
 2. Go to **Employees** → click **Add Employee**
 3. Register employees with 3-angle face capture
-4. Open `attendance.php` on a device/kiosk in the office
-5. Monitor everything from `admin.php`
+4. Open `attendance.php` on a kiosk device in the office
+5. Employees open `tracker.php` — [https://superdevs.co.in/tracker.php](https://superdevs.co.in/tracker.php) — on their phones
+6. Monitor everything live from `admin.php`
 
-***
+---
 
 ## 🔄 How It Works — Flow
 
@@ -193,11 +220,11 @@ Employee arrives at office
 └────────┬────────────┘
          │
          ▼
-┌─────────────────────┐
-│  GPS Watch starts   │  ← navigator.geolocation.watchPosition()
-│  on employee phone  │
-└────────┬────────────┘
-         │ Every 30s (or on movement)
+┌──────────────────────────┐
+│  tracker.php             │  ← Employee opens on their phone
+│  superdevs.co.in/tracker │  ← Lightweight GPS beacon page
+└────────┬─────────────────┘
+         │ On movement + every 30s
          ▼
 ┌─────────────────────┐
 │  api.php            │
@@ -221,7 +248,7 @@ End of Day → Admin triggers send_report.php
 Each employee gets personalized email summary
 ```
 
-***
+---
 
 ## 📊 Data Structure
 
@@ -235,7 +262,7 @@ Each employee gets personalized email summary
     "email": "suhan@company.com",
     "department": "Engineering",
     "registered_at": "2026-04-29 09:00:00",
-    "descriptors": [[0.12, -0.34, ...], [...], [...]],
+    "descriptors": [[0.12, -0.34, "..."], ["..."], ["..."]],
     "active": true
   }
 }
@@ -274,7 +301,7 @@ Each employee gets personalized email summary
 }
 ```
 
-***
+---
 
 ## 📧 Email Report (Sample)
 
@@ -297,7 +324,7 @@ Shift Hours: 09:00 – 18:00
 (This is an automated message)
 ```
 
-***
+---
 
 ## 🔐 Security Considerations
 
@@ -316,7 +343,7 @@ Order deny,allow
 Deny from all
 ```
 
-***
+---
 
 ## 🧪 Face Recognition Details
 
@@ -331,7 +358,7 @@ Deny from all
 
 **Why 3 angles?** A single frontal descriptor may fail under different lighting or head tilt. Capturing left + front + right creates a `LabeledFaceDescriptors` set — face-api.js finds the best match across all three, dramatically improving accuracy.
 
-***
+---
 
 ## 🗺 GPS Geofencing Details
 
@@ -343,35 +370,36 @@ d = 2R × atan2(√a, √(1−a))
 ```
 
 - **Radius:** 150 metres (configurable in `config.php`)
-- **Poll rate:** On movement + every 30s (browser `watchPosition`)
+- **Poll rate:** On movement + every 30s via `tracker.php` (`watchPosition`)
 - **Accuracy:** `enableHighAccuracy: true` for GPS-level precision
+- **Tracker URL:** [https://superdevs.co.in/tracker.php](https://superdevs.co.in/tracker.php)
 
-***
+---
 
 ## 🏆 Hackathon Highlights
 
-| Judging Criteria | FaceShift's Answer |
+| Judging Criteria | FaceShift\'s Answer |
 |---|---|
 | **AI Integration** | Real-time face recognition via neural net (face-api.js) directly in browser |
 | **Innovation** | Dual-layer verification: biometric check-in + continuous GPS presence |
 | **Completeness** | Full system: registration → attendance → monitoring → email reports |
 | **Practicality** | Works today, no hardware required beyond a webcam-enabled device |
 | **Tech Stack** | Pure PHP + JSON — zero DB setup, deployable anywhere |
-| **UX** | Kiosk mode, admin dashboard, auto email — fully automated workflow |
+| **UX** | Kiosk mode, dedicated tracker page, admin dashboard, auto email — fully automated |
 
-***
+---
 
 ## 🔭 Future Enhancements
 
 - [ ] MySQL/MariaDB migration for large teams
-- [ ] Mobile app (PWA) with background GPS service
+- [ ] Mobile app (PWA) with background GPS service replacing `tracker.php`
 - [ ] Monthly attendance reports & analytics charts
 - [ ] Liveness detection (anti-spoofing — detect if photo is shown to camera)
 - [ ] Slack/WhatsApp notification integration
 - [ ] Multi-office / multi-branch support
 - [ ] Overtime & late-arrival detection
 
-***
+---
 
 ## 👨‍💻 Built With
 
@@ -380,12 +408,27 @@ d = 2R × atan2(√a, √(1−a))
 - [PHPMailer](https://github.com/PHPMailer/PHPMailer) — Email delivery
 - [PHP 8+](https://php.net) — Backend logic
 
-***
+---
+
+## 🔗 Live Links
+
+| Page | URL |
+|---|---|
+| **Main App** | [https://superdevs.co.in/faceshift/](https://superdevs.co.in/faceshift/) |
+| **GPS Tracker** | [https://superdevs.co.in/tracker.php](https://superdevs.co.in/tracker.php) |
+
+---
 
 ## 📄 License
 
 MIT License — free to use, modify, and build upon.
 
-***
+---
 
 <p align="center">Built for the <strong>AI in Attendance</strong> Hackathon 🏆</p>
+'''
+
+with open('/home/user/output/README.md', 'w') as f:
+    f.write(readme)
+
+print(f"Done — {readme.count(chr(10))} lines written")
